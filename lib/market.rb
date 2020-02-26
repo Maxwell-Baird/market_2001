@@ -1,9 +1,9 @@
-require 'pry'
+require 'date'
 require './lib/vendor'
 require './lib/item'
 class Market
 
-  attr_reader :name, :vendors
+  attr_reader :name, :vendors, :date
 
   def initialize(name)
     @name = name
@@ -54,5 +54,30 @@ class Market
       end
     end
     overstocked
+  end
+
+  def sell(item_wanted, amount)
+    can_sell = false
+    amount_need = amount
+    total_inventory.each_key do |item|
+      if item_wanted == item
+        if total_inventory[item][:quantity] >= amount
+          can_sell = true
+          total_inventory[item][:vendors].each do |vendor|
+            if amount_need > 0
+              if amount_need >= vendor.inventory[item]
+                amount_need -= vendor.inventory[item]
+                vendor.inventory[item] = 0
+              elsif amount_need < vendor.inventory[item]
+                holder = vendor.inventory[item]
+                vendor.inventory[item] -= amount_need
+                amount_need -= holder
+              end
+            end
+          end
+        end
+      end
+    end
+    can_sell
   end
 end
