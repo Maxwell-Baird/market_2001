@@ -13,4 +13,10 @@ class Vendor
   def check_stock(item)
     @inventory[item]
   end
+
+  def potential_revenue
+    sum = 0
+    @inventory.each_key {|item| sum += item.price * @inventory[item].to_f}
+    sum
+  end
 end
