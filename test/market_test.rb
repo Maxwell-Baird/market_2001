@@ -59,8 +59,8 @@ class MarketTest < Minitest::Test
     expected = {
       @item1 => {quantity: 100, vendors: [@vendor1, @vendor3]},
       @item2 => {quantity: 7, vendors: [@vendor1]},
-      @item4 => {quantity: 35, vendors: [@vendor2]},
-      @item3 => {quantity: 50, vendors: [@vendor2, @vendor3]}
+      @item4 => {quantity: 50, vendors: [@vendor2]},
+      @item3 => {quantity: 35, vendors: [@vendor2, @vendor3]}
     }
     @market.add_vendor(@vendor1)
     @market.add_vendor(@vendor2)
